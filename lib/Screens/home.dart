@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:university_project/widgets/details.dart';
 import 'package:university_project/widgets/search.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -39,50 +40,7 @@ class HomeScreen extends StatelessWidget {
                         Image.asset('assets/images/next.png'),
                       ]),
                 ),
-                Container(
-                  color: Colors.amber,
-                  height: mediaQueryHieght * 0.53,
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: ListView(
-                          children: const [
-                            ListTile(
-                              leading: Icon(Icons.people),
-                              title: Text('Love Your Self'),
-                              subtitle: Text("Ahmad Khan"),
-                              trailing: Text('3:00'),
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.people),
-                              title: Text('Love Your Self'),
-                              subtitle: Text("Ahmad Khan"),
-                              trailing: Text('3:00'),
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.people),
-                              title: Text('Love Your Self'),
-                              subtitle: Text("Ahmad Khan"),
-                              trailing: Text('3:00'),
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.people),
-                              title: Text('Love Your Self'),
-                              subtitle: Text("Ahmad Khan"),
-                              trailing: Text('3:00'),
-                            ),
-                            ListTile(
-                              leading: Icon(Icons.people),
-                              title: Text('Love Your Self'),
-                              subtitle: Text("Ahmad Khan"),
-                              trailing: Text('3:00'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                DetailsWidget(mediaQueryHieght: mediaQueryHieght),
               ],
             ),
           )

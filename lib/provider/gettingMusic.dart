@@ -22,14 +22,17 @@ class GettingMusic extends ChangeNotifier {
           json.decode(respon.body) as Map<String, dynamic>;
       for (final dynamic song in responsData['results']) {
         loadedItems.add(MusicModel(
-          songTitle: song['trackName'],
-          album: song['collectionViewUrl'],
-          albumArt: song["artworkUrl60"],
-          artist: song['artistName'],
-        ));
+            album: song['collectionViewUrl'],
+            songTitle: song['trackName'],
+            albumName: song['collectionName'],
+            albumArt: song["artworkUrl60"],
+            artist: song['artistName'],
+            songDuration: (song["trackTimeMillis"] / 1000) / 60));
       }
       _musicList = loadedItems;
     }
     notifyListeners();
   }
+
+  Future<void> getMusicAlbum() async {}
 }

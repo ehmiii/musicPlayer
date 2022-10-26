@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:university_project/models/music_model.dart';
 import 'package:university_project/provider/gettingMusic.dart';
 
 class SearchWidget extends StatelessWidget {
-  double mediaQueryWidth;
-  double mediaQueryHieght;
-  double searchSizeWidth;
   SearchWidget(
       {required this.mediaQueryHieght,
       required this.mediaQueryWidth,
       required this.searchSizeWidth});
+  double mediaQueryWidth;
+  double mediaQueryHieght;
+  double searchSizeWidth;
+
+  TextEditingController _searchController = TextEditingController();
+
+  void searchMusic(BuildContext context) {
+    Provider.of<GettingMusic>(context, listen: false)
+        .getMusic(_searchController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,44 +27,48 @@ class SearchWidget extends StatelessWidget {
       height: mediaQueryHieght,
       child: Column(
         children: [
-          Expanded(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: searchSizeWidth,
-                  child: TextFormField(
-                    decoration: InputDecoration(
-                      hintText: 'Search',
-                      border: OutlineInputBorder(),
-                      suffixIcon: InkWell(
-                          borderRadius: BorderRadius.circular(50),
-                          onTap: () {
-                            Provider.of<GettingMusic>(context, listen: false)
-                                .getMusic('jhon');
-                          },
-                          splashColor: Colors.grey,
-                          child: Icon(Icons.search)),
-                    ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: searchSizeWidth,
+                child: TextFormField(
+                  onChanged: (searchValue) {
+                    Provider.of<GettingMusic>(context, listen: false)
+                        .getMusic(searchValue);
+                  },
+                  controller: _searchController,
+                  decoration: InputDecoration(
+                    hintText: 'Search',
+                    border: const OutlineInputBorder(),
+                    suffixIcon: InkWell(
+                        borderRadius: BorderRadius.circular(50),
+                        onTap: () {
+                          searchMusic(context);
+                        },
+                        splashColor: Colors.grey,
+                        child: const Icon(Icons.search)),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
-          songs.length == 0
+          songs.isEmpty
               ? Expanded(
-                  child: Container(
-                    color: Colors.red,
-                  ),
+                  child: Container(),
                 )
               : Expanded(
                   child: ListView.builder(
                       itemCount: songs.length,
                       itemBuilder: (ctx, index) {
-                        print(songs[index].artist);
                         return Card(
                           child: ListTile(
-                            leading: Text(songs[index].artist),
+                            leading: Image.network(songs[index].albumArt),
+                            title: Text(songs[index].songTitle),
+                            subtitle: Text(
+                                "${songs[index].artist}\n${songs[index].album}"),
+                            trailing:
+                                Text("${songs[index].songDuration.toInt()}min"),
                           ),
                         );
                       }),
