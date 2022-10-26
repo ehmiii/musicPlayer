@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:university_project/Screens/home.dart';
 import 'package:provider/provider.dart';
-import 'package:university_project/provider/gettingMusic.dart';
+
+import 'Screens/home.dart';
+import 'provider/gettingMusic.dart';
 
 void main() {
   runApp(const MyApp());

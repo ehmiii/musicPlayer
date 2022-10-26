@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:university_project/widgets/details.dart';
-import 'package:university_project/widgets/search.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/gettingMusic.dart';
+import '../widgets/details.dart';
+import '../widgets/search.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -10,6 +13,7 @@ class HomeScreen extends StatelessWidget {
     double mediaQueryWidth = MediaQuery.of(context).size.width;
     double mediaQueryHieght = MediaQuery.of(context).size.height;
     double searchSizeWidth = mediaQueryWidth * 0.33;
+    final song = Provider.of<GettingMusic>(context, listen: true).album;
     return Scaffold(
       body: SingleChildScrollView(
         child: Row(
@@ -28,7 +32,12 @@ class HomeScreen extends StatelessWidget {
                       color: Color.fromARGB(255, 253, 217, 217),
                       height: mediaQueryHieght * 0.32,
                       child: Center(
-                        child: Image.asset('assets/images/musicIcon.png'),
+                        child: song.isEmpty
+                            ? Image.asset('assets/images/musicIcon.png')
+                            : CircleAvatar(
+                                radius: 50,
+                                backgroundImage:
+                                    NetworkImage(song.first.albumArt)),
                       )),
                   Container(
                     color: Color.fromARGB(255, 253, 217, 217),
@@ -37,11 +46,20 @@ class HomeScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Expanded(
-                              child: Image.asset('assets/images/previous.png')),
+                              child: InkWell(
+                                  onTap: () {},
+                                  child: Image.asset(
+                                      'assets/images/previous.png'))),
                           Expanded(
-                              child: Image.asset('assets/images/resume.png')),
+                              child: InkWell(
+                                  onTap: () {},
+                                  child:
+                                      Image.asset('assets/images/resume.png'))),
                           Expanded(
-                              child: Image.asset('assets/images/next.png')),
+                              child: InkWell(
+                                  onTap: () {},
+                                  child:
+                                      Image.asset('assets/images/next.png'))),
                         ]),
                   ),
                   DetailsWidget(mediaQueryHieght: mediaQueryHieght),

@@ -28,6 +28,9 @@ class DetailsWidget extends StatelessWidget {
                             child: ListTile(
                               leading: Image.network(songs[index].albumArt),
                               title: Text(songs[index].songTitle),
+                              subtitle: Text("${songs[index].artist}\n"),
+                              trailing: Text(
+                                  "${songs[index].songDuration.toInt()}min"),
                             ),
                           ))),
         ],

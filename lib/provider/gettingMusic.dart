@@ -1,8 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:university_project/models/music_model.dart';
 import 'package:http/http.dart' as http;
+
+import '../models/music_model.dart';
 
 class GettingMusic extends ChangeNotifier {
   List<MusicModel> _musicList = [];
