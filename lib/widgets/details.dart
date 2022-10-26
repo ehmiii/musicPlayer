@@ -9,17 +9,27 @@ class DetailsWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final songs = Provider.of<GettingMusic>(context, listen: true).songList;
+    final songs = Provider.of<GettingMusic>(context, listen: true).album;
     return Container(
-      color: Colors.amber,
+      // color: Colors.amber,
       height: mediaQueryHieght * 0.53,
       child: Column(
         children: [
-          // Expanded(
-          //   child: ListView.builder(
-          //     itemCount: songs.length,
-          //     itemBuilder: (ctx, index)=>))
-          // ),
+          songs.isEmpty
+              ? const Center(
+                  child: Text(
+                    "Welcome",
+                  ),
+                )
+              : Expanded(
+                  child: ListView.builder(
+                      itemCount: songs.length,
+                      itemBuilder: (ctx, index) => Card(
+                            child: ListTile(
+                              leading: Image.network(songs[index].albumArt),
+                              title: Text(songs[index].songTitle),
+                            ),
+                          ))),
         ],
       ),
     );

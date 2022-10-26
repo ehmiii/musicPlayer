@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class MusicModel {
+  String collectionId;
+  String trackId;
   String songTitle;
   String artist;
   String albumName;
@@ -8,6 +10,8 @@ class MusicModel {
   String albumArt;
   double songDuration;
   MusicModel({
+    required this.trackId,
+    required this.collectionId,
     required this.songTitle,
     required this.album,
     required this.albumArt,
@@ -15,7 +19,4 @@ class MusicModel {
     required this.songDuration,
     required this.albumName,
   });
-  void func(){
-    print(artist);
-  }
 }

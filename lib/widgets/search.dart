@@ -15,7 +15,8 @@ class SearchWidget extends StatelessWidget {
 
   void searchMusic(BuildContext context) {
     Provider.of<GettingMusic>(context, listen: false)
-        .getMusic(_searchController.text);
+        .getMusic(_searchController.text)
+        .then((value) {});
   }
 
   @override
@@ -44,7 +45,9 @@ class SearchWidget extends StatelessWidget {
                     suffixIcon: InkWell(
                         borderRadius: BorderRadius.circular(50),
                         onTap: () {
-                          searchMusic(context);
+                          if (_searchController.text.isNotEmpty) {
+                            searchMusic(context);
+                          }
                         },
                         splashColor: Colors.grey,
                         child: const Icon(Icons.search)),
@@ -61,14 +64,22 @@ class SearchWidget extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: songs.length,
                       itemBuilder: (ctx, index) {
-                        return Card(
-                          child: ListTile(
-                            leading: Image.network(songs[index].albumArt),
-                            title: Text(songs[index].songTitle),
-                            subtitle: Text(
-                                "${songs[index].artist}\n${songs[index].album}"),
-                            trailing:
-                                Text("${songs[index].songDuration.toInt()}min"),
+                        return InkWell(
+                          onTap: () async {
+                            print('Hello');
+                            await Provider.of<GettingMusic>(context,
+                                    listen: false)
+                                .getMusicAlbum(collectionId: songs[index].collectionId);
+                          },
+                          child: Card(
+                            child: ListTile(
+                              leading: Image.network(songs[index].albumArt),
+                              title: Text(songs[index].songTitle),
+                              subtitle: Text(
+                                  "${songs[index].artist}\n${songs[index].albumName}"),
+                              trailing: Text(
+                                  "${songs[index].songDuration.toInt()}min"),
+                            ),
                           ),
                         );
                       }),
