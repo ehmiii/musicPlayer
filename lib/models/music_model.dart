@@ -5,13 +5,13 @@ class MusicModel {
   String artist;
   String album;
   String albumArt;
-  String artWorkImageUrl;
+  // String artWorkImageUrl;
   MusicModel({
     required this.songTitle,
     required this.album,
     required this.albumArt,
     required this.artist,
-    required this.artWorkImageUrl,
+   
   });
   void func(){
     print(artist);
